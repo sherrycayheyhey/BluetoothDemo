@@ -78,7 +78,18 @@ public class MainActivity extends AppCompatActivity {
                 statusTextView.setText("Finished");
                 //disable the button so the launch process isn't started again for a moment
                 searchButton.setEnabled(true);
+            } else if ((BluetoothDevice.ACTION_FOUND.equals(action))) {
+                //extract the bluetooth device
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                //do cool stuff with the device
+                String name = device.getName();
+                String address = device.getAddress();
+                //use rssi to get the device strength (nearer or further devices)
+                String rssi = Integer.toString(intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE));
+                Log.i("device found", "Name: " + name + " Address: " + address + "RSSI: " + rssi);
             }
+
+
         }
     };
 }
